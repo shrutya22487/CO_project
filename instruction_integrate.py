@@ -50,7 +50,6 @@ def jmp(lst,code):   # "01111"
             val = binary(i,7)
             f.write("01111"+"0000"+val+"\n")
             break
-
 def jlt(lst,code,flag):  # "11100"
     for i in range(len(code)):
         if lst[1] == code[i][0]:
@@ -59,7 +58,6 @@ def jlt(lst,code,flag):  # "11100"
                 f.write("11100"+"0000"+val+"\n")
                 break
             break
-
 def jgt(lst,code,flag):  # "11101"
     for i in range(len(code)):
         if lst[1] == code[i][0]:
@@ -68,7 +66,6 @@ def jgt(lst,code,flag):  # "11101"
                 f.write("11101"+"0000"+val+"\n")
                 break
             break
-
 def je(lst,code,flag):  # "11111"
     for i in range(len(code)):
         if lst[1] == code[i][0]:
@@ -85,20 +82,7 @@ f=open("output.txt", "w")
 f.close()
 f=open("output.txt", "a")
 
-'''
-code=[["mov", "R1", "$12"],
-      ["ld", "R1", "var_name1"],
-      ["st", "R2", "var_name2"],
-      ["not", "R1", "R2"],
-      ["mov", "R1", "R2"],
-      ["cmp", "R1", "R2"],
-      ["rs", "R1", "$12"],
-      ["ls", "R1", "$13"],
-      ["div", "R3", "R4"],
-      ["hlt"]]
-'''
-
-addr=len(code)-1
+addr=len(command_list)-1
 if (flag_check):
     for instr in command_list:
         op=instr[0]
