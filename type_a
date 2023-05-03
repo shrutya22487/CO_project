@@ -1,0 +1,45 @@
+def add(x,y,z):
+    machinecode = "1000000" + x + y + z
+    return machinecode
+def sub(x,y,z):
+    machinecode = "1000100" + x + y + z
+    return machinecode
+def mul(x,y,z):
+    machinecode = "1011000" + x + y + z
+    return machinecode 
+def xor(x,y,z):
+    machinecode = "1101000" + x + y + z
+    return machinecode
+def orfunc(x,y,z):
+    machinecode = "1101100" + x + y + z
+    return machinecode
+def andfunc(x,y,z):
+    machinecode = "1110000" + x + y + z
+    return machinecode
+
+registers = {"reg0": "000", "reg1": "001", "reg2": "010","reg3": "011","reg4": "100","reg5": "101","reg6": "110"}
+
+instruction = input("Enter the instruction you want to perform:")
+
+l = instruction.split()
+
+if l[0] == "add":
+    machinecode = add(registers.get(l[1]),registers.get(l[2]),registers.get(l[3]))
+    print(machinecode)
+elif l[0] == "sub":
+    machinecode = sub(registers.get(l[1]),registers.get(l[2]),registers.get(l[3]))
+    print(machinecode)
+elif l[0] == "mul":
+    machinecode = mul(registers.get(l[1]),registers.get(l[2]),registers.get(l[3]))
+    print(machinecode)
+elif l[0] == "xor":
+    machinecode = xor(registers.get(l[1]),registers.get(l[2]),registers.get(l[3]))
+    print(machinecode)
+elif l[0] == "or":
+    machinecode = orfunc(registers.get(l[1]),registers.get(l[2]),registers.get(l[3]))
+    print(machinecode)
+elif l[0] == "and":
+    machinecode = andfunc(registers.get(l[1]),registers.get(l[2]),registers.get(l[3]))
+    print(machinecode)
+else:
+    print("invalid command")
