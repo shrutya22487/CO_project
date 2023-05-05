@@ -141,22 +141,22 @@ if (flag_check):
         elif op=="hlt":
             halt()
         elif op == "add":
-            machinecode = add(registers.get(l[1]),registers.get(l[2]),registers.get(l[3]))
+            machinecode = add(registers.get(instr[1]),registers.get(instr[2]),registers.get(instr[3]))
             print(machinecode)
         elif op == "sub":
-            machinecode = sub(registers.get(l[1]),registers.get(l[2]),registers.get(l[3]))
+            machinecode = sub(registers.get(instr[1]),registers.get(instr[2]),registers.get(instr[3]))
             print(machinecode)
         elif op == "mul":
-            machinecode = mul(registers.get(l[1]),registers.get(l[2]),registers.get(l[3]))
+            machinecode = mul(registers.get(instr[1]),registers.get(instr[2]),registers.get(instr[3]))
             print(machinecode)
         elif op == "xor":
-            machinecode = xor(registers.get(l[1]),registers.get(l[2]),registers.get(l[3]))
+            machinecode = xor(registers.get(instr[1]),registers.get(instr[2]),registers.get(instr[3]))
             print(machinecode)
         elif op == "or":
-            machinecode = orfunc(registers.get(l[1]),registers.get(l[2]),registers.get(l[3]))
+            machinecode = orfunc(registers.get(instr[1]),registers.get(instr[2]),registers.get(instr[3]))
             print(machinecode)
         elif op == "and":
-            machinecode = andfunc(registers.get(l[1]),registers.get(l[2]),registers.get(l[3]))
+            machinecode = andfunc(registers.get(instr[1]),registers.get(instr[2]),registers.get(instr[3]))
             print(machinecode)
         else:
             print("invalid command")
