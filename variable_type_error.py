@@ -13,9 +13,9 @@ def use_of_undefined_variables(code):
 
 def variables_not_defined_at_begin(code):
     for i in range(len(code)):
-        if len(code[i]) != 2:
+        if code[i][0] != "var":
             break
-    for j in range(i,len(code)):
+    for j in range(i+1,len(code)):
         if code[j][0] == "var":
             print("syntax error")
             break
