@@ -100,7 +100,7 @@ def andfunc(x,y,z):
 f=open("output.txt", "w")
 f.close()
 f=open("output.txt", "a")
-
+registers = {"reg0": "000", "reg1": "001", "reg2": "010","reg3": "011","reg4": "100","reg5": "101","reg6": "110"}
 addr=len(command_list)-1
 if (flag_check):
     for instr in command_list:
@@ -110,6 +110,18 @@ if (flag_check):
                 movImm(instr)
             else:
                 movReg(instr)
+        elif op == "add":
+            add(registers.get(l[1]),registers.get(l[2]),registers.get(l[3]))
+        elif op == "sub":
+            sub(registers.get(l[1]),registers.get(l[2]),registers.get(l[3]))
+        elif op == "mul":
+            mul(registers.get(l[1]),registers.get(l[2]),registers.get(l[3]))
+        elif op == "xor":
+            xor(registers.get(l[1]),registers.get(l[2]),registers.get(l[3]))
+        elif op == "or":
+            orfunc(registers.get(l[1]),registers.get(l[2]),registers.get(l[3]))
+        elif op == "and":
+            andfunc(registers.get(l[1]),registers.get(l[2]),registers.get(l[3]))
         elif op=="rs":
             rightShift(instr)
         elif op=="ls":
@@ -138,5 +150,3 @@ if (flag_check):
             halt()
 
 f.close()
-    
- 
