@@ -1,26 +1,3 @@
-def add(x,y,z):
-    machinecode = "1000000" + x + y + z
-    return machinecode
-def sub(x,y,z):
-    machinecode = "1000100" + x + y + z
-    return machinecode
-def mul(x,y,z):
-    machinecode = "1011000" + x + y + z
-    return machinecode 
-def xor(x,y,z):
-    machinecode = "1101000" + x + y + z
-    return machinecode
-def orfunc(x,y,z):
-    machinecode = "1101100" + x + y + z
-    return machinecode
-def andfunc(x,y,z):
-    machinecode = "1110000" + x + y + z
-    return machinecode
-
-
-
-
-
 def binary(x,n):
     lst=["0" for i in range (n)]
     for i in range (n-1, -1, -1):
@@ -100,6 +77,25 @@ def je(lst,code,flag):  # "11111"
 
 def halt(): #11010 hlt
     f.write("11010"+"00000000000"+"\n")
+    
+def add(x,y,z):
+    machinecode = "1000000" + x + y + z
+    f.write(machinecode)
+def sub(x,y,z):
+    machinecode = "1000100" + x + y + z
+    f.write(machinecode)
+def mul(x,y,z):
+    machinecode = "1011000" + x + y + z
+    f.write(machinecode)
+def xor(x,y,z):
+    machinecode = "1101000" + x + y + z
+    f.write(machinecode)
+def orfunc(x,y,z):
+    machinecode = "1101100" + x + y + z
+    f.write(machinecode)
+def andfunc(x,y,z):
+    machinecode = "1110000" + x + y + z
+    f.write(machinecode)
 
 f=open("output.txt", "w")
 f.close()
@@ -114,6 +110,18 @@ if (flag_check):
                 movImm(instr)
             else:
                 movReg(instr)
+        elif op == "add":
+            add(registers.get(l[1]),registers.get(l[2]),registers.get(l[3]))
+        elif op == "sub":
+            sub(registers.get(l[1]),registers.get(l[2]),registers.get(l[3]))
+        elif op == "mul":
+            mul(registers.get(l[1]),registers.get(l[2]),registers.get(l[3]))
+        elif op == "xor":
+            xor(registers.get(l[1]),registers.get(l[2]),registers.get(l[3]))
+        elif op == "or":
+            orfunc(registers.get(l[1]),registers.get(l[2]),registers.get(l[3]))
+        elif op == "and":
+            andfunc(registers.get(l[1]),registers.get(l[2]),registers.get(l[3]))
         elif op=="rs":
             rightShift(instr)
         elif op=="ls":
@@ -140,27 +148,6 @@ if (flag_check):
             jmp(instr,command_list,flag)
         elif op=="hlt":
             halt()
-        elif op == "add":
-            machinecode = add(registers.get(instr[1]),registers.get(instr[2]),registers.get(instr[3]))
-            print(machinecode)
-        elif op == "sub":
-            machinecode = sub(registers.get(instr[1]),registers.get(instr[2]),registers.get(instr[3]))
-            print(machinecode)
-        elif op == "mul":
-            machinecode = mul(registers.get(instr[1]),registers.get(instr[2]),registers.get(instr[3]))
-            print(machinecode)
-        elif op == "xor":
-            machinecode = xor(registers.get(instr[1]),registers.get(instr[2]),registers.get(instr[3]))
-            print(machinecode)
-        elif op == "or":
-            machinecode = orfunc(registers.get(instr[1]),registers.get(instr[2]),registers.get(instr[3]))
-            print(machinecode)
-        elif op == "and":
-            machinecode = andfunc(registers.get(instr[1]),registers.get(instr[2]),registers.get(instr[3]))
-            print(machinecode)
-        else:
-            print("invalid command")
 
-f.close()
-    
+f.close()    
  
