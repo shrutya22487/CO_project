@@ -52,9 +52,9 @@ def check_flag( instruction_list ):
 
 ########## main ############
 
-f=open("/home/mc/a.txt",'r')
+input=open("/home/mc/a.txt",'r')
 command_list=f.readlines()
-output=open("/home/mc/output_file.txt",'w')
+f=open("/home/mc/output_file.txt",'w')
 for i in range(len(command_list)):
     command_list[i]=command_list[i].split()
 print(command_list, '\n')
@@ -73,7 +73,8 @@ command_E = ['jmp' , 'jlt' , 'jgt', 'je']
 registers=['R0','R1','R2','R3','R4','R5','R6','FLAGS']
 label = []
 ######taking into account variables#######
-lst, ind , flag = [] , 0 , 0
+lst, ind = [] , 0
+flag = 0
 for i in range(l):
     if command_list[i] == []:         # assuming that after variable declaration length of instruction would not be 2
         ind += 1
@@ -95,88 +96,88 @@ for i in range(l): #starting to check for conditions
         ######checks for condition a ########
 
         if check_variables( command_list[i] ) and check_label( command_list[i] ) and check_instruction_A(command_list[i]) and  check_instruction_B(command_list[i]) and check_instruction_C(command_list[i]) and check_instruction_D(command_list[i]) and check_instruction_E(command_list[i]) and check_instruction_F(command_list[i]):
-            flag = 1
+            flag += 1
             s = f"{i+1} incorrect instruction name or register name"
             #print(i+1, "incorrect instruction name or register name")
-            output.write(s)
+            f.write(s)
             continue   # change f as output in file
 
         ######checks for condition b #########
 
         if command_list[i][0] in {"ld","st"}:
             if command_list[i][2] not in lst:
-                flag = 1
+                flag += 1
                 s = f"{i+1} use of undefined variables"
                 #print("use of undefined variables")
-                output.write(s)
+                f.write(s)
                 continue
 
         ###### checks for condition G #######
 
         if i>= ind and not check_variables( command_list[i] ):
-            flag = 1
+            flag += 1
             s = f"{i+1} variables not defined at beginning "
             #print(i + 1 , "variables not defined at beginning")
-            output.write(s)
+            f.write(s)
             continue
 
         ######checks for condition e ########
 
         if not check_instruction_B(command_list[i]) and not(0<=int(command_list[i][2][1:])<=127):
-            flag = 1
+            flag += 1
             s=f"{i+1} illegal immediate values"
             #print(i+1, "illegal immediate values")
-            output.write(s)
+            f.write(s)
             continue
 
         ######checks for condition c ########
         if not check_instruction_E( command_list[i] ) and command_list[i][1] not in label:
-            flag = 1
+            flag += 1
             #print(command_list[i][1])
             s=f"{i+1} use of undefined labels"
             #print(i+1, " use of undefined labels")
-            output.write(s)
+            f.write(s)
             continue
 
         ###### checks for condition F ########
         if not check_instruction_E( command_list[i] ) and  ( command_list[i][1][0 : len( command_list[i] )-1 ] in lst ):
-            flag = 1
+            flag += 1
             s=f"{i+1} misuse variable as label "
             #print(i+1," misuse variable as label")
-            output.write(s)
+            f.write(s)
             continue
 
 
         if not check_instruction_D( command_list[i]) and ( command_list[i][2] not in lst ):
-            flag = 1
+            flag += 1
             s=f"{i+1} misuse label as variable "
             #print(i+1," misuse label as variable")
-            output.write(s)
+            f.write(s)
             continue
 
 
         ##### checks for condition D#######
 
         if 'FLAGS' in instruction_list and instruction_list[0] != 'mov':
-            flag = 1
+            flag += 1
             continue
 
 
 ######checks for condition H ########
 
 if ['hlt'] not in command_list:
-    flag = 1
+    flag += 1
     s=f'{l} hlt is missing'
     #print(l,"hlt is missing")
-    output.write(s)
+    f.write(s)
 
 ######checks for condition I ########
 
 if ['hlt'] in command_list and ['hlt'] != command_list[-1]:
-    flag = 1
+    flag += 1
     s=f'{l} hlt is not last instruction'
     #print(l," hlt is not last instruction")
-    output.write(s)
+    f.write(s)
 
 f.close()
 output.close()
