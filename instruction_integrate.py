@@ -102,7 +102,7 @@ f=open("output.txt", "w")
 #f=open("output.txt", "a")
 registers = {"reg0": "000", "reg1": "001", "reg2": "010","reg3": "011","reg4": "100","reg5": "101","reg6": "110"}
 addr=len(command_list)-1
-if (flag_check):
+if (not flag):
     for instr in command_list:
         op=instr[0]
         if op=="mov":
