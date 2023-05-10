@@ -67,6 +67,7 @@ registers=['R0','R1','R2','R3','R4','R5','R6','FLAGS']
 label = []
 ######taking into account variables#######
 lst, ind = [] , 0
+flag = 0
 for i in range(l):
     if not check_variables( command_list[i] ):         # assuming that after variable declaration length of instruction would not be 2
         lst.append(command_list[i][1])    # making variable list
@@ -89,6 +90,7 @@ for i in range(l): #starting to check for conditions
         if check_variables( command_list[i] ) and check_label( command_list[i] ) and check_instruction_A(command_list[i]) and  check_instruction_B(command_list[i]) and check_instruction_C(command_list[i]) and check_instruction_D(command_list[i]) and check_instruction_E(command_list[i]) and check_instruction_F(command_list[i]):
             #s = f"{i+1} incorrect instruction name or register name"
             print(i+1, "incorrect instruction name or register name")
+            flag += 1
             #f.write(s)
             continue
 
@@ -97,12 +99,14 @@ for i in range(l): #starting to check for conditions
         if command_list[i][0] in {"ld","st"}:
             if command_list[i][2] not in lst:
                 print("use of undefined variables")
+                flag += 1
                 continue
 
         ###### checks for condition G #######
 
         if i>= ind and not check_variables( command_list[i] ):
             print("variables not defined at beginning")
+            flag += 1
             continue
 
         ######checks for condition e ########
@@ -110,6 +114,7 @@ for i in range(l): #starting to check for conditions
         if not check_instruction_B(command_list[i]) and not(0<=int(command_list[i][2][1:])<=127):
             #s=f"{i+1} illegal immediate values"
             print(i+1, "illegal immediate values")
+            flag += 1
             #f.write(s)
             continue
 
@@ -118,6 +123,7 @@ for i in range(l): #starting to check for conditions
             print(command_list[i][1])
             #s=f"{i+1} use of undefined labels"
             print(i+1, " use of undefined labels")
+            flag += 1
             #f.write(s)
             continue
 
@@ -125,6 +131,7 @@ for i in range(l): #starting to check for conditions
         if not check_instruction_E( command_list[i] ) and  ( command_list[i][1][0 : len( command_list[i] )-1 ] in lst ):
             #s=f"{i+1} misuse variable as label "
             print(i+1," misuse variable as label")
+            flag += 1
             #f.write(s)
             continue
 
@@ -132,6 +139,7 @@ for i in range(l): #starting to check for conditions
         if not check_instruction_D( command_list[i]) and ( command_list[i][2] not in lst ):
             #s=f"{i+1} misuse label as variable "
             print(i+1," misuse label as variable")
+            flag += 1
             #f.write(s)
             continue
 
@@ -139,6 +147,7 @@ for i in range(l): #starting to check for conditions
         ##### checks for condition D#######
 
         if not check_flag( command_list [i] ):
+            flag += 1
             continue
 
 
@@ -148,6 +157,7 @@ if ['hlt'] not in command_list:
     #s=f'{l} hlt is missing'
     print(l,"hlt is missing")
     #f.write(s)
+    flag += 1
 
 ######checks for condition I ########
 
@@ -155,6 +165,9 @@ if ['hlt'] in command_list and ['hlt']!=command_list[l-1]:
     #s=f'{l} hlt is not last instruction'
     print(l," hlt is not last instruction")
     #f.write(s)
+    flag += 1
+if flag == 0:
+    
 
 f.close()
 output.close()
