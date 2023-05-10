@@ -91,7 +91,7 @@ for i in range(l): #starting to check for conditions
             #s = f"{i+1} incorrect instruction name or register name"
             print(i+1, "incorrect instruction name or register name")
             flag += 1
-            #f.write(s)
+            f.write(s)
             continue
 
         ######checks for condition b #########
@@ -115,7 +115,7 @@ for i in range(l): #starting to check for conditions
             #s=f"{i+1} illegal immediate values"
             print(i+1, "illegal immediate values")
             flag += 1
-            #f.write(s)
+            f.write(s)
             continue
 
         ######checks for condition c ########
@@ -124,7 +124,7 @@ for i in range(l): #starting to check for conditions
             #s=f"{i+1} use of undefined labels"
             print(i+1, " use of undefined labels")
             flag += 1
-            #f.write(s)
+            f.write(s)
             continue
 
         ###### checks for condition F ########
@@ -132,7 +132,7 @@ for i in range(l): #starting to check for conditions
             #s=f"{i+1} misuse variable as label "
             print(i+1," misuse variable as label")
             flag += 1
-            #f.write(s)
+            f.write(s)
             continue
 
 
@@ -140,7 +140,7 @@ for i in range(l): #starting to check for conditions
             #s=f"{i+1} misuse label as variable "
             print(i+1," misuse label as variable")
             flag += 1
-            #f.write(s)
+            f.write(s)
             continue
 
 
@@ -156,7 +156,7 @@ for i in range(l): #starting to check for conditions
 if ['hlt'] not in command_list:
     #s=f'{l} hlt is missing'
     print(l,"hlt is missing")
-    #f.write(s)
+    f.write(s)
     flag += 1
 
 ######checks for condition I ########
@@ -164,7 +164,7 @@ if ['hlt'] not in command_list:
 if ['hlt'] in command_list and ['hlt']!=command_list[l-1]:
     #s=f'{l} hlt is not last instruction'
     print(l," hlt is not last instruction")
-    #f.write(s)
+    f.write(s)
     flag += 1
     
 f.close()
