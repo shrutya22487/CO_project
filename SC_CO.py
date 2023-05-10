@@ -45,9 +45,9 @@ def check_flag( instruction_list ):
 
 ########## main ############
 
-f=open("/home/mc/a.txt",'r')
-command_list=f.readlines()
-output=open("/home/mc/output_file.txt",'w')
+input=open("/home/mc/a.txt",'r')
+command_list=input.readlines()
+f=open("/home/mc/output_file.txt",'w')
 for i in range(len(command_list)):
     command_list[i]=command_list[i].split()
 print(command_list, '\n')
