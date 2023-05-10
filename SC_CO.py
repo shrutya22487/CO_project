@@ -15,11 +15,11 @@ def check_instruction_C(instruction_list): # checks if instruction is of type C 
         return 0
     return 1
 def check_instruction_D(instruction_list): # checks if instruction is of type D then returns 0
-    if (len(instruction_list)==3) and (instruction_list[0] in command_D) and (instruction_list[1] in registers) and type(instruction_list[2]) == str:
+    if (len(instruction_list)==3) and (instruction_list[0] in command_D) and (instruction_list[1] in registers) and type(instruction_list[2]) == 'str':
         return 0
     return 1
 def check_instruction_E(instruction_list): # checks if instruction is of type E then returns 0
-    if (len(instruction_list)==2) and (instruction_list[0] in command_E) and type(instruction_list[1]) == str:
+    if (len(instruction_list)==2) and (instruction_list[0] in command_E) and type(instruction_list[1]) == 'str':
         return 0
     return 1
 def check_instruction_F(instruction_list): # checks if instruction is of type F then returns 0
