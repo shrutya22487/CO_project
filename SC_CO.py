@@ -166,8 +166,6 @@ if ['hlt'] in command_list and ['hlt']!=command_list[l-1]:
     print(l," hlt is not last instruction")
     #f.write(s)
     flag += 1
-if flag == 0:
     
-
 f.close()
 output.close()
