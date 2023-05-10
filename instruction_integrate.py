@@ -98,8 +98,8 @@ def andfunc(x,y,z):
     f.write(machinecode)
 
 f=open("output.txt", "w")
-f.close()
-f=open("output.txt", "a")
+#f.close()
+#f=open("output.txt", "a")
 registers = {"reg0": "000", "reg1": "001", "reg2": "010","reg3": "011","reg4": "100","reg5": "101","reg6": "110"}
 addr=len(command_list)-1
 if (flag_check):
