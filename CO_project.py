@@ -277,6 +277,55 @@ if ['hlt'] in command_list and ['hlt'] != command_list[-1]:
     s=f'{l} hlt is not last instruction'
     #print(l," hlt is not last instruction")
     f.write(s)
+   
+registers = {"reg0": "000", "reg1": "001", "reg2": "010","reg3": "011","reg4": "100","reg5": "101","reg6": "110"}
+addr=len(command_list)-1
+if (not flag):
+    for instr in command_list:
+        op=instr[0]
+        if op=="mov":
+            if ("$" in instr[2]):
+                movImm(instr)
+            else:
+                movReg(instr)
+        elif op == "add":
+            add(registers.get(l[1]),registers.get(l[2]),registers.get(l[3]))
+        elif op == "sub":
+            sub(registers.get(l[1]),registers.get(l[2]),registers.get(l[3]))
+        elif op == "mul":
+            mul(registers.get(l[1]),registers.get(l[2]),registers.get(l[3]))
+        elif op == "xor":
+            xor(registers.get(l[1]),registers.get(l[2]),registers.get(l[3]))
+        elif op == "or":
+            orfunc(registers.get(l[1]),registers.get(l[2]),registers.get(l[3]))
+        elif op == "and":
+            andfunc(registers.get(l[1]),registers.get(l[2]),registers.get(l[3]))
+        elif op=="rs":
+            rightShift(instr)
+        elif op=="ls":
+            leftShift(instr)
+        elif op=="ld":
+            addr+=1
+            load(instr,addr)
+        elif op=="st":
+            addr+=1
+            store(instr, addr)
+        elif op=="div":
+            divide(instr)
+        elif op=="not":
+            invert(instr)
+        elif op=="cmp":
+            compare(instr)
+        elif op == "jmp":
+            jmp(instr,command_list)
+        elif op == "jlt":
+            jmp(instr,command_list,flag)
+        elif op == "jgp":
+            jmp(instr,command_list,flag)
+        elif op == "je":
+            jmp(instr,command_list,flag)
+        elif op=="hlt":
+            halt()
 
-input.close()
 f.close()
+input.close()
