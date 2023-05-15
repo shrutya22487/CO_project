@@ -168,7 +168,7 @@ available_commands = ['add','sub','mov','ld','st','mul','div','rs','ls','xor','o
 
 command_A = ['add' , 'sub' , 'mul' , 'xor', 'or' , 'and']
 command_B = ['mov' , 'rs' , 'ls']
-command_C = ['mov' , 'not' , 'cmp' ]
+command_C = ['mov' , 'div', 'not' , 'cmp' ]
 command_D = ['ld' , 'st' ]
 command_E = ['jmp' , 'jlt' , 'jgt', 'je']
 
