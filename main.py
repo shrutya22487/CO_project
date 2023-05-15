@@ -74,8 +74,15 @@ def leftShift(lst): #01001 ls
     f.write("01001"+"0"+r+val+"\n")
 
 def movReg(lst): #00011 mov
-    reg1=binary(int(lst[1][-1]),3)
-    reg2=binary(int(lst[2][-1]),3)
+    if lst[1]=='FLAGS' and lst[2]!='FLAGS':
+        reg1=binary(7,3)
+        reg2=binary(int(lst[2][-1]),3)
+    elif lst[1]!='FLAGS' and lst[2]=='FLAGS':
+        reg1=binary(int(lst[1][-1]),3)
+        reg2=binary(7,3)
+    else:
+        reg1=binary(int(lst[1][-1]),3)
+        reg2=binary(int(lst[2][-1]),3)
     f.write("00011"+"00000"+reg1+reg2+"\n")
 def divide(lst): #00111 div
     reg1=binary(int(lst[1][-1]),3)
@@ -99,36 +106,50 @@ def store(lst, addr): #00101 st
     addr=binary(addr,7)
     f.write("00101"+"0"+r+addr+"\n")
 
-def jmp(lst,code):   # "01111"
-    for i in range(len(code)):
+def jmp(lst,code,var_lst):   # "01111"
+    label_num1 = 0
+    for i in range(len(var_lst),len(code)):
         if lst[1] == code[i][0][:-1]:
-            val = binary(i,7)
-            f.write("01111"+"0000"+val+"\n")
             break
-def jlt(lst,code,flag):  # "11100"
-    for i in range(len(code)):
+    for j in range(i):
+        if not check_label(code[j]):
+            label_num1 += 1 
+    val = binary(i-len(var_lst)-label_num1,7)
+    f.write("01111"+"0000"+val+"\n")
+
+def jlt(lst,code,var_lst):  # "11100"
+    label_num1 = 0
+    for i in range(len(var_lst),len(code)):
         if lst[1] == code[i][0][:-1]:
-            if flag < 1:
-                val = binary(i,7)
-                f.write("11100"+"0000"+val+"\n")
-                break
             break
-def jgt(lst,code,flag):  # "11101"
-    for i in range(len(code)):
+    for j in range(i):
+        if not check_label(code[j]):
+            label_num1 += 1
+    val = binary(i-len(var_lst)-label_num1,7)
+    f.write("11100"+"0000"+val+"\n")
+            
+def jgt(lst,code,var_lst):  # "11101"
+    label_num1 = 0
+    for i in range(len(var_lst),len(code)):
         if lst[1] == code[i][0][:-1]:
-            if flag > 1:
-                val = binary(i,7)
-                f.write("11101"+"0000"+val+"\n")
-                break
             break
-def je(lst,code,flag):  # "11111"
-    for i in range(len(code)):
+    for j in range(i):
+        if not check_label(code[j]):
+            label_num1 += 1
+    val = binary(i-len(var_lst)-label_num1,7)
+    f.write("11101"+"0000"+val+"\n")
+            
+def je(lst,code,var_lst):  # "11111"
+    label_num1 = 0
+    for i in range(len(var_lst),len(code)):
         if lst[1] == code[i][0][:-1]:
-            if flag == 1:
-                val = binary(i,7)
-                f.write("11111"+"0000"+val+"\n")
-                break
             break
+    for j in range(i):
+        if not check_label(code[j]):
+            label_num1 += 1
+    val = binary(i-len(var_lst)-label_num1,7)
+    f.write("11111"+"0000"+val+"\n")
+            
 
 def halt(): #11010 hlt
     f.write("11010"+"00000000000"+"\n")
@@ -204,9 +225,7 @@ for i in range(l):
 
 
 print( "labels are", label ,'\n' , "variables are " , lst , '\n')
-for i in range(l): #starting to check for conditions
-    if not check_label(command_list[i]):
-        label_num += 1 
+for i in range(l): #starting to check for conditions 
     if command_list[i]!=[]:
         ######checks for condition a ########
 
@@ -296,9 +315,9 @@ for i in range(l): #starting to check for conditions
             break
    
 registers_dict = {"R0": "000", "R1": "001", "R2": "010","R3": "011","R4": "100","R5": "101","R6": "110"}
-addr=l-1-len(label)
+addr=l-1-len(label)-len(lst)
 if (not flag):
-    for instr in command_list:
+    for instr in command_list: 
         if instr != []:
             op=instr[0]
             if op=="mov":
@@ -335,13 +354,13 @@ if (not flag):
             elif op=="cmp":
                 compare(instr)
             elif op == "jmp":
-                jmp(instr,command_list)
+                jmp(instr,command_list,lst)
             elif op == "jlt":
-                jmp(instr,command_list,flag)
-            elif op == "jgp":
-                jmp(instr,command_list,flag)
+                jlt(instr,command_list,lst)
             elif op == "je":
-                jmp(instr,command_list,flag)
+                je(instr,command_list,lst)
+            elif op=="jgt":
+                jgt(instr,command_list,lst)
             elif op=="hlt":
                 halt()
 
