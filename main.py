@@ -9,8 +9,7 @@ def check_instruction_B(instruction_list): # checks if instruction is of type B 
     except:
         return 1
     if len(instruction_list)==3 :
-        if (instruction_list[0] in command_B) and (instruction_list[1] in registers) :
-            
+        if (instruction_list[0] in command_B) and (instruction_list[1] in registers and instruction_list[2][0] == '$') :
             return 0
     #print("CHECK")
     return 1
