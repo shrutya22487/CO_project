@@ -1,3 +1,4 @@
+label_num = 0
 def check_instruction_A(instruction_list): # checks if instruction is of type A then returns 0
     if len(instruction_list)==4 :
         if (instruction_list[0] in command_A) and (instruction_list[1] in registers) and (instruction_list[2] in registers) and (instruction_list[3] in registers):
@@ -204,20 +205,21 @@ for i in range(l):
 
 print( "labels are", label ,'\n' , "variables are " , lst , '\n')
 for i in range(l): #starting to check for conditions
-
+    if not check_label(command_list[i]):
+        label_num += 1 
     if command_list[i]!=[]:
         ######checks for condition a ########
 
         if check_variables( command_list[i] ) and check_label( command_list[i] ) and check_instruction_A(command_list[i]) and  check_instruction_B(command_list[i]) and check_instruction_C(command_list[i]) and check_instruction_D(command_list[i]) and check_instruction_E(command_list[i]) and check_instruction_F(command_list[i]):
             flag += 1
-            s = f"Error in line {i+1}: incorrect instruction name or register name\n"
+            s = f"Error in line {i+1-label_num}: incorrect instruction name or register name\n"
             #print(i+1, "incorrect instruction name or register name")
             f.write(s)
             continue   # change f as output in file
         if not check_instruction_D( command_list[i]) and ( command_list[i][2] not in lst ):
             if command_list[i][2]  in label:
                 flag += 1
-                s=f"Error in line {i+1}: misuse of label as variable\n "
+                s=f"Error in line {i+1-label_num}: misuse of label as variable\n "
                 #print(i+1," misuse label as variable")
                 f.write(s)
                 continue 
@@ -226,7 +228,7 @@ for i in range(l): #starting to check for conditions
         if command_list[i][0] in {"ld","st"}:
             if command_list[i][2] not in lst:
                 flag += 1
-                s = f"Error in line {i+1}: use of undefined variables\n"
+                s = f"Error in line {i+1-label_num}: use of undefined variables\n"
                 #print("use of undefined variables")
                 f.write(s)
                 continue
@@ -235,7 +237,7 @@ for i in range(l): #starting to check for conditions
 
         if i>= ind and not check_variables( command_list[i] ):
             flag += 1
-            s = f"Error in line {i+1}: variables not defined at beginning \n"
+            s = f"Error in line {i+1-label_num}: variables not defined at beginning \n"
             #print(i + 1 , "variables not defined at beginning")
             f.write(s)
             continue
@@ -244,7 +246,7 @@ for i in range(l): #starting to check for conditions
 
         if not check_instruction_B(command_list[i]) and not(0<=int(command_list[i][2][1:])<=127):
             flag += 1
-            s=f"Error in line {i+1}: illegal immediate values\n"
+            s=f"Error in line {i+1-label_num}: illegal immediate values\n"
             #print(i+1, "illegal immediate values")
             f.write(s)
             continue
@@ -253,7 +255,7 @@ for i in range(l): #starting to check for conditions
         if not check_instruction_E( command_list[i] ) and command_list[i][1] not in label:
             flag += 1
             #print(command_list[i][1])
-            s=f"Error in line {i+1}: use of undefined labels\n"
+            s=f"Error in line {i+1-label_num}: use of undefined labels\n"
             #print(i+1, " use of undefined labels")
             f.write(s)
             continue
@@ -261,7 +263,7 @@ for i in range(l): #starting to check for conditions
         ###### checks for condition F ########
         if not check_instruction_E( command_list[i] ) and  ( command_list[i][1] in lst ):
             flag += 1
-            s=f"Error in line {i+1}: misuse variable as label \n"
+            s=f"Error in line {i+1-label_num}: misuse variable as label \n"
             #print(i+1," misuse variable as label")
             f.write(s)
             continue
@@ -270,7 +272,7 @@ for i in range(l): #starting to check for conditions
 
         if 'FLAGS' in command_list[ i ] and command_list[ i ][0] != 'mov':
             flag += 1
-            s=f"Error in line {i+1}: illegal use of FLAGS\n "
+            s=f"Error in line {i+1-label_num}: illegal use of FLAGS\n "
             f.write(s)
             continue
 
