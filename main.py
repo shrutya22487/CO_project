@@ -292,7 +292,7 @@ if ['hlt'] in command_list and ['hlt'] != command_list[-1]:
     #print(l," hlt is not last instruction")
     f.write(s)
    
-registers = {"R0": "000", "R1": "001", "R2": "010","R3": "011","R4": "100","R5": "101","R6": "110"}
+registers_dict = {"R0": "000", "R1": "001", "R2": "010","R3": "011","R4": "100","R5": "101","R6": "110"}
 addr=l-1-len(label)
 if (not flag):
     for instr in command_list:
@@ -304,17 +304,17 @@ if (not flag):
                 else:
                     movReg(instr)
             elif op == "add":
-                add(registers.get(instr[1]),registers.get(instr[2]),registers.get(instr[3]))
+                add(registers_dict.get(instr[1]),registers_dict.get(instr[2]),registers_dict.get(instr[3]))
             elif op == "sub":
-                sub(registers.get(instr[1]),registers.get(instr[2]),registers.get(instr[3]))
+                sub(registers_dict.get(instr[1]),registers_dict.get(instr[2]),registers_dict.get(instr[3]))
             elif op == "mul":
-                mul(registers.get(instr[1]),registers.get(instr[2]),registers.get(instr[3]))
+                mul(registers_dict.get(instr[1]),registers_dict.get(instr[2]),registers_dict.get(instr[3]))
             elif op == "xor":
-                xor(registers.get(instr[1]),registers.get(instr[2]),registers.get(instr[3]))
+                xor(registers_dict.get(instr[1]),registers_dict.get(instr[2]),registers_dict.get(instr[3]))
             elif op == "or":
-                orfunc(registers.get(instr[1]),registers.get(instr[2]),registers.get(instr[3]))
+                orfunc(registers_dict.get(instr[1]),registers_dict.get(instr[2]),registers_dict.get(instr[3]))
             elif op == "and":
-                andfunc(registers.get(instr[1]),registers.get(instr[2]),registers.get(instr[3]))
+                andfunc(registers_dict.get(instr[1]),registers_dict.get(instr[2]),registers_dict.get(instr[3]))
             elif op=="rs":
                 rightShift(instr)
             elif op=="ls":
