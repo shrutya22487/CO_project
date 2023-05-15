@@ -133,22 +133,22 @@ def halt(): #11010 hlt
     f.write("11010"+"00000000000"+"\n")
     
 def add(x,y,z):
-    machinecode = "1000000" + x + y + z+"\n"
+    machinecode = "0000000" + x + y + z+"\n"
     f.write(machinecode)
 def sub(x,y,z):
-    machinecode = "1000100" + x + y + z+"\n"
+    machinecode = "0000100" + x + y + z+"\n"
     f.write(machinecode)
 def mul(x,y,z):
-    machinecode = "1011000" + x + y + z+"\n"
+    machinecode = "0011000" + x + y + z+"\n"
     f.write(machinecode)
 def xor(x,y,z):
-    machinecode = "1101000" + x + y + z+"\n"
+    machinecode = "0101000" + x + y + z+"\n"
     f.write(machinecode)
 def orfunc(x,y,z):
-    machinecode = "1101100" + x + y + z+"\n"
+    machinecode = "0101100" + x + y + z+"\n"
     f.write(machinecode)
 def andfunc(x,y,z):
-    machinecode = "1110000" + x + y + z+"\n"
+    machinecode = "0110000" + x + y + z+"\n"
     f.write(machinecode)
 
 ########## main ############
