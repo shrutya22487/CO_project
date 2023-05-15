@@ -12,7 +12,7 @@ def check_instruction_B(instruction_list): # checks if instruction is of type B 
         if (instruction_list[0] in command_B) and (instruction_list[1] in registers) :
             
             return 0
-    print("CHECK")
+    #print("CHECK")
     return 1
 def check_instruction_C(instruction_list): # checks if instruction is of type C then returns 0
     if len(instruction_list)==3:
