@@ -1,3 +1,4 @@
+import sys
 label_num = 0
 def check_instruction_A(instruction_list): # checks if instruction is of type A then returns 0
     if len(instruction_list)==4 :
@@ -63,15 +64,15 @@ def binary(x,n):
 def movImm(lst): #00010 mov
     r=binary(int(lst[1][-1]),3)
     val=binary(int(lst[2][1:]),7)
-    f.write("00010"+"0"+r+val+"\n")
+    print("00010"+"0"+r+val+"\n")
 def rightShift(lst): #01000 rs
     r=binary(int(lst[1][-1]),3)
     val=binary(int(lst[2][1:]),7)
-    f.write("01000"+"0"+r+val+"\n")
+    print("01000"+"0"+r+val+"\n")
 def leftShift(lst): #01001 ls
     r=binary(int(lst[1][-1]),3)
     val=binary(int(lst[2][1:]),7)
-    f.write("01001"+"0"+r+val+"\n")
+    print("01001"+"0"+r+val+"\n")
 
 def movReg(lst): #00011 mov
     if lst[1]=='FLAGS' and lst[2]!='FLAGS':
@@ -83,28 +84,28 @@ def movReg(lst): #00011 mov
     else:
         reg1=binary(int(lst[1][-1]),3)
         reg2=binary(int(lst[2][-1]),3)
-    f.write("00011"+"00000"+reg1+reg2+"\n")
+    print("00011"+"00000"+reg1+reg2+"\n")
 def divide(lst): #00111 div
     reg1=binary(int(lst[1][-1]),3)
     reg2=binary(int(lst[2][-1]),3)
-    f.write("00111"+"00000"+reg1+reg2+"\n")
+    print("00111"+"00000"+reg1+reg2+"\n")
 def invert(lst): #01101 not
     reg1=binary(int(lst[1][-1]),3)
     reg2=binary(int(lst[2][-1]),3)
-    f.write("01101"+"00000"+reg1+reg2+"\n")
+    print("01101"+"00000"+reg1+reg2+"\n")
 def compare(lst): #01110 cmp
     reg1=binary(int(lst[1][-1]),3)
     reg2=binary(int(lst[2][-1]),3)
-    f.write("01110"+"00000"+reg1+reg2+"\n")
+    print("01110"+"00000"+reg1+reg2+"\n")
 
 def load(lst, addr): #00100 ld
     r=binary(int(lst[1][-1]),3)
     addr=binary(addr, 7)
-    f.write("00100"+"0"+r+addr+"\n")
+    print("00100"+"0"+r+addr+"\n")
 def store(lst, addr): #00101 st
     r=binary(int(lst[1][-1]),3)
     addr=binary(addr,7)
-    f.write("00101"+"0"+r+addr+"\n")
+    print("00101"+"0"+r+addr+"\n")
 
 def jmp(lst,code,var_lst):   # "01111"
     label_num1 = 0
@@ -115,7 +116,7 @@ def jmp(lst,code,var_lst):   # "01111"
         if not check_label(code[j]):
             label_num1 += 1 
     val = binary(i-len(var_lst)-label_num1,7)
-    f.write("01111"+"0000"+val+"\n")
+    print("01111"+"0000"+val+"\n")
 
 def jlt(lst,code,var_lst):  # "11100"
     label_num1 = 0
@@ -126,7 +127,7 @@ def jlt(lst,code,var_lst):  # "11100"
         if not check_label(code[j]):
             label_num1 += 1
     val = binary(i-len(var_lst)-label_num1,7)
-    f.write("11100"+"0000"+val+"\n")
+    print("11100"+"0000"+val+"\n")
             
 def jgt(lst,code,var_lst):  # "11101"
     label_num1 = 0
@@ -137,7 +138,7 @@ def jgt(lst,code,var_lst):  # "11101"
         if not check_label(code[j]):
             label_num1 += 1
     val = binary(i-len(var_lst)-label_num1,7)
-    f.write("11101"+"0000"+val+"\n")
+    print("11101"+"0000"+val+"\n")
             
 def je(lst,code,var_lst):  # "11111"
     label_num1 = 0
@@ -148,39 +149,39 @@ def je(lst,code,var_lst):  # "11111"
         if not check_label(code[j]):
             label_num1 += 1
     val = binary(i-len(var_lst)-label_num1,7)
-    f.write("11111"+"0000"+val+"\n")
+    print("11111"+"0000"+val+"\n")
             
 
 def halt(): #11010 hlt
-    f.write("11010"+"00000000000"+"\n")
+    print("11010"+"00000000000"+"\n")
     
 def add(x,y,z):
     machinecode = "0000000" + x + y + z+"\n"
-    f.write(machinecode)
+    print(machinecode)
 def sub(x,y,z):
     machinecode = "0000100" + x + y + z+"\n"
-    f.write(machinecode)
+    print(machinecode)
 def mul(x,y,z):
     machinecode = "0011000" + x + y + z+"\n"
-    f.write(machinecode)
+    print(machinecode)
 def xor(x,y,z):
     machinecode = "0101000" + x + y + z+"\n"
-    f.write(machinecode)
+    print(machinecode)
 def orfunc(x,y,z):
     machinecode = "0101100" + x + y + z+"\n"
-    f.write(machinecode)
+    print(machinecode)
 def andfunc(x,y,z):
     machinecode = "0110000" + x + y + z+"\n"
-    f.write(machinecode)
+    print(machinecode)
 
 ########## main ############
 
-input=open("input.txt",'r')
-command_list = input.readlines()
-f=open("output.txt",'w')
+command_list = sys.stdin.readlines()
+#command_list = input.readlines()
+#f=open("output.txt",'w')
 for i in range(len(command_list)):
     command_list[i]=command_list[i].split()
-print(command_list, '\n')
+#print(command_list, '\n')
 #will give the lines broken up into seperate words and gives empty lists for empty lines
 ######### start checking#########
 
@@ -207,7 +208,7 @@ for i, instr in enumerate(command_list):
         command_list.insert(i + 1, next_instr)
 
 
-print (command_list)
+#print (command_list)
 
 l=len( command_list )
 
@@ -224,7 +225,7 @@ for i in range(l):
 
 
 
-print( "labels are", label ,'\n' , "variables are " , lst , '\n')
+#print( "labels are", label ,'\n' , "variables are " , lst , '\n')
 for i in range(l): #starting to check for conditions 
     if command_list[i]!=[]:
         ######checks for condition a ########
@@ -232,15 +233,15 @@ for i in range(l): #starting to check for conditions
         if check_variables( command_list[i] ) and check_label( command_list[i] ) and check_instruction_A(command_list[i]) and  check_instruction_B(command_list[i]) and check_instruction_C(command_list[i]) and check_instruction_D(command_list[i]) and check_instruction_E(command_list[i]) and check_instruction_F(command_list[i]):
             flag += 1
             s = f"Error in line {i+1-label_num}: incorrect instruction name or register name\n"
-            #print(i+1, "incorrect instruction name or register name")
-            f.write(s)
+            print(s)
+            #print(s)
             continue   # change f as output in file
         if not check_instruction_D( command_list[i]) and ( command_list[i][2] not in lst ):
             if command_list[i][2]  in label:
                 flag += 1
                 s=f"Error in line {i+1-label_num}: misuse of label as variable\n "
-                #print(i+1," misuse label as variable")
-                f.write(s)
+                print(s)
+                #print(s)
                 continue 
         ######checks for condition b #########
 
@@ -248,8 +249,8 @@ for i in range(l): #starting to check for conditions
             if command_list[i][2] not in lst:
                 flag += 1
                 s = f"Error in line {i+1-label_num}: use of undefined variables\n"
-                #print("use of undefined variables")
-                f.write(s)
+                print(s)
+                #print(s)
                 continue
 
         ###### checks for condition G #######
@@ -258,7 +259,7 @@ for i in range(l): #starting to check for conditions
             flag += 1
             s = f"Error in line {i+1-label_num}: variables not defined at beginning \n"
             #print(i + 1 , "variables not defined at beginning")
-            f.write(s)
+            print(s)
             continue
 
         ######checks for condition e ########
@@ -267,7 +268,7 @@ for i in range(l): #starting to check for conditions
             flag += 1
             s=f"Error in line {i+1-label_num}: illegal immediate values\n"
             #print(i+1, "illegal immediate values")
-            f.write(s)
+            print(s)
             continue
 
         ######checks for condition c ########
@@ -276,7 +277,7 @@ for i in range(l): #starting to check for conditions
             #print(command_list[i][1])
             s=f"Error in line {i+1-label_num}: use of undefined labels\n"
             #print(i+1, " use of undefined labels")
-            f.write(s)
+            print(s)
             continue
 
         ###### checks for condition F ########
@@ -284,7 +285,7 @@ for i in range(l): #starting to check for conditions
             flag += 1
             s=f"Error in line {i+1-label_num}: misuse variable as label \n"
             #print(i+1," misuse variable as label")
-            f.write(s)
+            print(s)
             continue
 
         ##### checks for condition D#######
@@ -292,7 +293,7 @@ for i in range(l): #starting to check for conditions
         if 'FLAGS' in command_list[ i ] and command_list[ i ][0] != 'mov':
             flag += 1
             s=f"Error in line {i+1-label_num}: illegal use of FLAGS\n "
-            f.write(s)
+            print(s)
             continue
 
 
@@ -302,7 +303,7 @@ for i in range(l): #starting to check for conditions
             flag += 1
             s=f'Error in line {l}: hlt is missing'
             #print(l,"hlt is missing")
-            f.write(s)
+            print(s)
             break
 
 ######checks for condition I ########
@@ -311,7 +312,7 @@ for i in range(l): #starting to check for conditions
             flag += 1
             s=f'Error in line {l}: hlt is not last instruction'
             #print(l," hlt is not last instruction")
-            f.write(s)
+            print(s)
             break
    
 registers_dict = {"R0": "000", "R1": "001", "R2": "010","R3": "011","R4": "100","R5": "101","R6": "110"}
@@ -364,5 +365,5 @@ if (not flag):
             elif op=="hlt":
                 halt()
 
-f.close()
-input.close()
+#f.close()
+#input.close()
