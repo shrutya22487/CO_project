@@ -2,10 +2,11 @@ def globalisation():          # declares all variables as global
     global R0 , R1 , R2 , R3 , R4 , R5 , R6 , FLAGS
     return 
 def registers():
+    s = ''
     for i in reg:
         if i != "111":
-            print( binary( reg[ i ] , 16 ) , end = ' ' ) #gives the output of the registers as binary 16 bits
-    return
+            s += binary( reg[ i ] , 16 ) + ' ' #gives the output of the registers as binary 16 bits
+    return s
 def binary(x,n): #x->Decimal number, n->No of bits
     lst=["0" for i in range (n)]
     for i in range (n-1, -1, -1):
@@ -23,18 +24,11 @@ def decimal(n): # converts from binary to decimal
     return value
 #----------------Your functions go here-------------
 
-# your functions should follow the format such as 
-# add( R1 , R2 , R3 )  where u will be getting the value of the registers as ints only 
-# u have to return the new value of the PC to me 
-# in jumping conditions u get the 2nd parameter as the binary address of the place 
-# at which u have to jump
-# thank u for reading :) i am free now can do more work now YaYYYYY!!!
-
 ############## Main ##############
 
-f=open("Input.txt")
+f=open("D:/Input.txt")
 command_list = f.readlines()
-len_of_command_list, i , R0 , R1 , R2 , R3 , R4 , R5 , R6 , FLAGS = len( command_list ) , 0 , 0 , 0 , 0 , 0 , 0 , 0 , '0000000000000000'
+len_of_command_list, i , R0 , R1 , R2 , R3 , R4 , R5 , R6 , FLAGS = len( command_list ) , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , '0000000000000000'
 reg = { "000" : R0 , "001" : R1 , "010" : R2 , "011" : R3 , "100" : R4 , "101" : R5 , "110" : R6 , "111" : FLAGS }
 instructions = { "00000" : add( reg[ command_list[i][7 : 10 ] ], reg[ command_list[i][ 10 : 13 ] ], reg[ command_list[i][ 13 : ] ] )
                 , "00001" : sub( reg[ command_list[i][7 : 10 ] ] , reg[ command_list[i][ 10 : 13 ] ] , reg[ command_list[i][ 13 : ] ] )
@@ -59,5 +53,6 @@ instructions = { "00000" : add( reg[ command_list[i][7 : 10 ] ], reg[ command_li
 globalisation()
 while ( command_list[ i ][ : 5 ] != '11010'):   #termination step is when we reach opcode of halt
     i = instructions[ command_list[i][ : 5] ]
-    print( binary( i , 7 ) + ' ' + registers() + ' ' + FLAGS )
+    s = registers()
+    print( binary( i , 7 ) + ' ' + s + ' ' + FLAGS )
 f.close()
