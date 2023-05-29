@@ -92,16 +92,22 @@ def c_mp(instr):
 
 def ld(instr):
     reg1=instr[6:9]
-    mem=instr[9:]
+    mem = int( instr[9:] )
+    loc = decimal( mem ) - l - 1  
+    try:
+        variables[ loc ]
+    except:
+        variables.append( 0 )
     # reg[reg1]=mem
     global FLAGS
     FLAGS="0000000000000000"
     return i+1
 
 def st(instr):
-    mem=instr[9:]
+    mem = int( instr[9:] )
     reg1=reg[instr[6:9]]
-    mem=reg1
+    loc = decimal( mem ) - l - 1 
+    variables[ loc ] = reg1
     global FLAGS
     FLAGS="0000000000000000"
     return i+1
