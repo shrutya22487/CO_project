@@ -122,16 +122,19 @@ def jlt(instr):  # "11100"
     if FLAGS[14] == "1":
         mem_addr = instr[10:]
         return decimal(mem_addr)
+    return i+1
       
 def jgt(instr):  # "11101"
     if FLAGS[15] == "1":
         mem_addr = instr[10:]
         return decimal(mem_addr)
+    return i+1
   
 def je(instr):  # "11111"
     if FLAGS[16] == "1":
         mem_addr = instr[10:]
         return decimal(mem_addr)
+    return i+1
       
 
 def hlt():
