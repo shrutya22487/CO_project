@@ -15,7 +15,8 @@ def binary(x,n): #x->Decimal number, n->No of bits
     for i in range (n-1, -1, -1):
         lst[i]=str(x%2)
         x=x//2
-    return "".join(lst)
+         y = "".join(lst)
+    return int(y)
 def decimal(n): # converts from binary to decimal
     num, value , base = int( n ) , 0 , 1 
     tmp = num
@@ -27,12 +28,11 @@ def decimal(n): # converts from binary to decimal
     return value
 def add(instr):
     global FLAGS
-    reg2=binary(reg[instr[10:13]],16)
-    reg3=binary(reg[instr[13:]],16)
-    reg1=binary(reg[instr[7:10]],16)
+    reg2= reg[instr[10:13]]
+    reg3= reg[instr[13:]]
+    reg1= reg[instr[7:10]]
     reg[reg1] = reg2 + reg3
-    reg4 = decimal(reg[reg1])
-    if reg4 > (2**16 -1) or reg4 < -(2**16):
+    if reg[reg1] > (2**16 -1) or reg[reg1] < -(2**16):
         FLAGS="0000000000001000"
         reg[reg1] = binary(0,16)
     else:
@@ -56,12 +56,11 @@ def sub(instr):
 
 def mul(instr):
     global FLAGS
-    reg2=binary(reg[instr[10:13]],16)
-    reg3=binary(reg[instr[13:]],16)
-    reg1=binary(reg[instr[7:10]],16)
+    reg2= reg[instr[10:13]]
+    reg3= reg[instr[13:]]
+    reg1= reg[instr[7:10]],16)
     reg[reg1] = reg2 * reg3
-    reg4 = decimal(reg[reg1])
-    if reg4 > (2**16 -1) or reg4 < -(2**16):
+    if reg[reg1] > (2**16 -1) or reg[reg1] < -(2**16):
         FLAGS="0000000000001000"
         reg[reg1] = binary(0,16)
     else:
