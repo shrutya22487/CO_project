@@ -218,8 +218,11 @@ def je(instr):  # "11111"
 
 def hlt():
     return 0
-
-
+def memory_dump():
+    for i in command_list:
+        print( '000000000' + i )
+    for i in range( l , 129 ):
+        print( '0000000000000000' )
 
 instructions = { "00000" : add
                 , "00001" : sub
@@ -246,4 +249,5 @@ while ( command_list[i][:5]!='11010'):   #termination step is when we reach opco
     i=instructions[command_list[i][:5]](command_list[i])
     s=registers()
     print(binary(i,7)+"\n"+s+"\n\n")
+memory_dump()
 f.close()
