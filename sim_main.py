@@ -9,8 +9,8 @@ for i in l:
     command_list = f.readlines()
     l = len ( command_list )
     for i in range( l ):
-        command_list[i] = command_list[i].split("\n")
-    
+        command_list[i] = command_list[i][:16]
+    print( command_list )
     variables = [] 
     def registers():
         global FLAGS
@@ -39,10 +39,10 @@ for i in l:
         return value
     def add(instr):
         global FLAGS
-        print( instr[10:13] )
+        print( instr[13:] )
         reg2= reg[instr[10:13] ]
-        reg3= reg[instr[13:16] ]
-        reg1=instr[7:10]
+        reg3= reg[instr[13:] ]
+        reg1= instr[7:10]
         reg[reg1]= reg2 + reg3
         if reg[reg1] > (2**16 -1) or reg[reg1] < -(2**16):
             FLAGS[12]=1
@@ -54,10 +54,11 @@ for i in l:
 
     def sub(instr):
         global FLAGS
-        reg2=reg[instr[10:13]]
-        reg3=reg[instr[13:]]
+        reg2=instr[10:13]
+        reg3=instr[13:]
         reg1=instr[7:10]
-        reg[reg1] = reg2 - reg3
+        print( "reg1", reg1 , "reg2" , reg2 , "reg3 " , reg3)
+        reg[reg1] = reg[ reg2 ] - reg[ reg3 ]
         if reg[reg2] < reg[reg3]:
             FLAGS[12]=1
             reg[reg1] = binary(0,16)
@@ -177,13 +178,14 @@ for i in l:
         global FLAGS
         reg1=instr[6:9]
         mem = int( instr[9:] )
-        loc = decimal( mem ) - l + 1  
+        loc = decimal( mem ) - l + 1
+        print( variables )  
         try:
             variables[loc]
         except:
             variables.append( 0 )
-        reg[reg1]=variables[loc] #Review this
-        FLAGS=[0 for k in range (16)]
+        reg[reg1] = variables[loc] #Review this
+        FLAGS = [0 for k in range (16)]
         return i+1
 
     def st(instr):
