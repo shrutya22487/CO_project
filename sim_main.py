@@ -39,8 +39,9 @@ for i in l:
         return value
     def add(instr):
         global FLAGS
-        reg2= reg[instr[10:13]]
-        reg3= reg[instr[13:]]
+        print( instr[10:13] )
+        reg2= reg[instr[10:13] ]
+        reg3= reg[instr[13:16] ]
         reg1=instr[7:10]
         reg[reg1]= reg2 + reg3
         if reg[reg1] > (2**16 -1) or reg[reg1] < -(2**16):
@@ -232,29 +233,29 @@ for i in l:
         for i in range( l , 129 ):
             print( '0000000000000000' )
 
-    instructions = { "00000" : add
-                    , "00001" : sub
-                    , "00010" : movImm
-                    , "00011" : mov_reg 
-                    , "00100" : ld 
-                    , "00101" : st
-                    , "00110" : mul
-                    , "00111" : div
-                    , "01000" : rs 
-                    , "01001" : ls
-                    , "01010" : bit_xor
-                    , "01011" : bit_or
-                    , "01100" : bit_and
-                    , "01101" : n_ot  
-                    , "01110" : c_mp
-                    , "01111" : jmp
-                    , "11100" : jlt
-                    , "11101" : jgt
-                    , "11111" : je
-                    , "11010" : hlt}
+    instructions = { "00000" : add(command_list[i])
+                    , "00001" : sub(command_list[i])
+                    , "00010" : movImm(command_list[i])
+                    , "00011" : mov_reg(command_list[i])
+                    , "00100" : ld(command_list[i]) 
+                    , "00101" : st(command_list[i])
+                    , "00110" : mul(command_list[i])
+                    , "00111" : div(command_list[i])
+                    , "01000" : rs(command_list[i]) 
+                    , "01001" : ls(command_list[i])
+                    , "01010" : bit_xor(command_list[i])
+                    , "01011" : bit_or(command_list[i])
+                    , "01100" : bit_and(command_list[i])
+                    , "01101" : n_ot(command_list[i])  
+                    , "01110" : c_mp(command_list[i])
+                    , "01111" : jmp(command_list[i])
+                    , "11100" : jlt(command_list[i])
+                    , "11101" : jgt(command_list[i])
+                    , "11111" : je(command_list[i])
+                    , "11010" : hlt()}
     i = 0
     while ( command_list[i][:5]!='11010'):   #termination step is when we reach opcode of halt
-        i=instructions[command_list[i][:5]](command_list[i])
+        i=instructions[command_list[i][:5]]
         s=registers()
         print(binary(i,7)+" "+s+" ")
     memory_dump()
