@@ -9,12 +9,12 @@ reg = {
     "110": globals()["R6"],
     "111": globals()["FLAGS"]
 }  
-l = [ 'D:\\test2.txt' , 'D:\\test3.txt', 'D:\\test4.txt', 
+l = ['D:\\test1.txt', 'D:\\test2.txt', 'D:\\test3.txt', 'D:\\test4.txt', 
     'D:\\test5.txt' ]
 #f =open("D:\\test1.txt")
 
-for i in l:
-    f = open(i)
+for file in l:
+    f = open(file)
     command_list = f.readlines()
     l = len(command_list)
     for i in range(l):
@@ -29,9 +29,7 @@ for i in l:
             if j!="111":
                 s+=binary(reg[j],16) + ' ' #gives the output of the registers as binary 16 bits
         FLAGS=list(map(str, FLAGS))
-        a = "".join( FLAGS )
-        #print( FLAGS )
-        s = s + ' ' + a
+        s+="".join(FLAGS)
         return s
     def binary(x,n): #x->Decimal number, n->No of bits
         lst=["0" for i in range (n)]
@@ -51,7 +49,7 @@ for i in l:
         return value
     def add(instr):
         global FLAGS
-        #print( instr[10:13] )
+        print( instr[10:13] )
         reg2= reg[instr[10:13] ]
         reg3= reg[instr[13:16] ]
         reg1=instr[7:10]
@@ -243,7 +241,7 @@ for i in l:
         return 0
     def memory_dump():
         for i, cmd in enumerate(command_list):
-            print( cmd.strip() )
+            print('000000000' + cmd.strip())
         for i in range(l, 129):
             print('0000000000000000')
 
@@ -271,13 +269,12 @@ for i in l:
         "11010": hlt
     }
     i = 0
-    
     while ( command_list[i][:5]!='11010'):   #termination step is when we reach opcode of halt
         i = instructions[command_list[i][:5]](command_list[i])
         s=registers()
-        print(binary(i - 1 , 7 )+" "+s+" ")
-    s=registers()
-    print(binary(i,7)+" "+s+" ")
+        print(binary(i-1,7)+" "+s)
+        if command_list[i][:5]=='11010':
+            print(binary(i-1,7)+" "+s)
     memory_dump()
     print("\n")
     f.close()
