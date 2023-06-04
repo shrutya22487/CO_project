@@ -219,7 +219,7 @@ for file in l:
             mem_addr = instr[10:]
             return decimal(mem_addr)
         FLAGS=[0 for k in range (16)]
-        return decimal(mem_addr)
+        return i+1
         
     def jgt(instr):  # "11101"
         global FLAGS
@@ -227,7 +227,7 @@ for file in l:
             mem_addr = instr[10:]
             return decimal(mem_addr)
         FLAGS=[0 for k in range (16)]
-        return decimal(mem_addr)
+        return i+1
 
     def je(instr):  # "11111"
         global FLAGS
@@ -235,7 +235,7 @@ for file in l:
             mem_addr = instr[10:]
             return decimal(mem_addr)
         FLAGS=[0 for k in range (16)]
-        return decimal(mem_addr)
+        return i+1
 
     def hlt():
         return 0
