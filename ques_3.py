@@ -9,6 +9,8 @@ reg = {
     "110": globals()["R6"],
     "111": globals()["FLAGS"]
 }
+l = ['D:\\test1.txt', 'D:\\test2.txt', 'D:\\test3.txt', 'D:\\test4.txt', 
+    'D:\\test5.txt' ]
 for file in l:
     f = open(file)
     command_list = f.readlines()
