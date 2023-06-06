@@ -1,3 +1,4 @@
+import sys
 i , R0 , R1 , R2 , R3 , R4 , R5 , R6 , FLAGS =0, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0
 reg = {
     "000": globals()["R0"],
@@ -8,9 +9,10 @@ reg = {
     "101": globals()["R5"],
     "110": globals()["R6"],
     "111": globals()["FLAGS"]
-}  
-l = [  'D:\\test5.txt' ]
-for file in l:
+} 
+#command_list = sys.stdin.readlines()   # comment this out
+l = [ 'D:\\test3.txt' ] # remove this
+for file in l:   # remove for loop
     f = open(file)
     command_list = f.readlines()
     l = len(command_list)
@@ -169,13 +171,10 @@ for file in l:
         else:
             reg["111"]=set_flags(reg["111"], 15)
         return i+1
-
-    variables = [0] * (2 ** 16)
-
     def ld(instr):
         reg1=instr[6:9]
         mem = int( instr[9:] )
-        loc = decimal( mem ) - l + 1  
+        loc = decimal( mem ) - l   
         try:
             variables[loc]
         except:
@@ -187,7 +186,11 @@ for file in l:
     def st(instr):
         mem = int( instr[9:] )
         reg1 = reg[ instr[6:9] ]
-        loc = decimal( mem ) - l + 1 
+        loc = decimal( mem ) - l 
+        try:
+            variables[loc]
+        except:
+            variables.append( 0 ) 
         variables[ loc ] = reg1
         reg["111"]=0
         return i+1
@@ -223,11 +226,13 @@ for file in l:
     def memory_dump():
         for i, cmd in enumerate(command_list):
             print( cmd.strip())
-        
-        for i in range(l, 129):
+        length_of_variable = len( variables )
+        for i in range( 0 , length_of_variable ):
+            print( binary( variables[ i ]  , 16  ) )
+        for i in range(l , 128 - length_of_variable ):
             print('0000000000000000')
 
-
+#------------------main-------------------#
     instructions = {
         "00000": add,
         "00001": sub,
@@ -257,5 +262,6 @@ for file in l:
         print(binary(i-1,7)+" "+s)       
     print(binary(i,7)+" "+s)
     memory_dump()
+    #print( variables )
     print("\n")
     f.close()
