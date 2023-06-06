@@ -85,12 +85,12 @@ for file in l:
         machinecode = "1000110" + source_reg + mem_address + "\n"
         print(machinecode)
 
-    def incfz_simulator(instr):     #Jumps to the memory address if register contains -1
+    def incfz_simulator(instr):     #Jumps to the memory address if register contains 0
         reg1 = reg[instr[6:9]]
         reg[reg1] = reg1 + 1
         mem_addr = instr[10:]
         reg["111"]=0
-        if reg[reg1] == 0:
+        if reg[reg1] == 1:
             return decimal(mem_addr)
         else:
             return i + 1
