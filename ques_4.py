@@ -43,7 +43,7 @@ for file in l:
     def incf_simulator(instr):
         source_reg = reg[instr[10:13] ]
         dest_reg = instr[13:16]
-        reg[dest_reg] = source_reg - 1
+        reg[dest_reg] = source_reg + 1
         return i + 1
     
     def incf_assembly(source_reg,dest_reg):
@@ -51,7 +51,7 @@ for file in l:
         print(machinecode)
     
     def comf_simulator(instr):
-        source_reg = str(reg[instr[10:13] ])
+        source_reg = str(instr[10:13])
         s = ''
         for ch in source_reg:
             if ch == '1':
