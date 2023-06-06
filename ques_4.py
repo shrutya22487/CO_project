@@ -30,17 +30,17 @@ for file in l:
             base *= 2
         return value
     
-    def decf_simulator(instr):
-        source_reg = reg[instr[10:13] ]
+    def decf_simulator(instr):            #Subtracts 1 from the given register and stores the value
+        source_reg = reg[instr[10:13]]
         dest_reg = instr[13:16]
         reg[dest_reg] = source_reg - 1
         return i + 1
     
-    def decf_assembly(source_reg,dest_reg):
+    def decf_assembly(source_reg,dest_reg):  
         machinecode = "1000000000" + source_reg + dest_reg + "\n"
         print(machinecode)
 
-    def incf_simulator(instr):
+    def incf_simulator(instr):             #Adds 1 in the given register and stores the value
         source_reg = reg[instr[10:13] ]
         dest_reg = instr[13:16]
         reg[dest_reg] = source_reg + 1
@@ -50,7 +50,7 @@ for file in l:
         machinecode = "1000010000" + source_reg + dest_reg + "\n"
         print(machinecode)
     
-    def comf_simulator(instr):
+    def comf_simulator(instr):             #Stores 1's complement of the given register 
         source_reg = str(instr[10:13])
         s = ''
         for ch in source_reg:
@@ -71,7 +71,7 @@ for file in l:
         reg["111"]=0
         return decimal(mem_addr)
     
-    def decfz_simulator(instr):
+    def decfz_simulator(instr):     #Jumps to the memory address if register contains 1
         reg1 = reg[instr[6:9]]
         reg[reg1] = reg1 - 1
         mem_addr = instr[10:]
@@ -85,7 +85,7 @@ for file in l:
         machinecode = "1000110" + source_reg + mem_address + "\n"
         print(machinecode)
 
-    def incfz_simulator(instr):
+    def incfz_simulator(instr):     #Jumps to the memory address if register contains -1
         reg1 = reg[instr[6:9]]
         reg[reg1] = reg1 + 1
         mem_addr = instr[10:]
