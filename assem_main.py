@@ -144,8 +144,9 @@ def jgt(lst,code,var_lst):  # "11101"
 def je(lst,code,var_lst):  # "11111"
     label_num1 = 0
     for i in range(len(var_lst),len(code)):
-        if lst[1] == code[i][0][:-1]:
-            break
+        if code[i] != []:
+            if lst[1]+":" == code[i][0]:
+                break
     for j in range(i):
         if not check_label(code[j]):
             label_num1 += 1
@@ -178,9 +179,9 @@ def andfunc(x,y,z):
 ########## main ############
 
 command_list = sys.stdin.readlines()
-# inp=open("input.txt")
-# command_list = input.readlines()
-# f=open("output.txt",'w')
+#inp=open("input.txt")
+#command_list = inp.readlines()
+#f=open("output.txt",'w')
 for i in range(len(command_list)):
     command_list[i]=command_list[i].split()
 # print(command_list, '\n')
@@ -368,5 +369,5 @@ if (not flag):
             elif op=="hlt":
                 halt()
 
-# f.close()
-# input.close()
+#f.close()
+#inp.close()
