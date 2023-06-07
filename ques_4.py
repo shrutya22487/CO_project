@@ -76,7 +76,7 @@ for file in l:
             return i + 1
     
     def decfz_assembly(source_reg,mem_address):
-        machinecode = "1000110" + source_reg + mem_address + "\n"
+        machinecode = "100011" + source_reg + mem_address + "\n"
         print(machinecode)
 
     def incfz_simulator(instr):     #Jumps to the memory address if register contains 0
