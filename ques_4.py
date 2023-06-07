@@ -83,7 +83,6 @@ for file in l:
         reg1 = reg[instr[6:9]]
         reg[reg1] = reg1 + 1
         mem_addr = instr[10:]
-        reg["111"]=0
         if reg[reg1] == 1:
             return decimal(mem_addr)
         else:
