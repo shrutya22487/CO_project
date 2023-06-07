@@ -179,8 +179,8 @@ def andfunc(x,y,z):
 
 command_list = sys.stdin.readlines()
 # inp=open("input.txt")
-command_list = input.readlines()
-f=open("output.txt",'w')
+# command_list = input.readlines()
+# f=open("output.txt",'w')
 for i in range(len(command_list)):
     command_list[i]=command_list[i].split()
 # print(command_list, '\n')
