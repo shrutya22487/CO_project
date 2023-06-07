@@ -92,7 +92,7 @@ for file in l:
         machinecode = "100100" + source_reg + mem_address + "\n"
         print(machinecode)
 
-opcode = {"decf": "100000","incf": "100001","comf": "100010","swapf": "100011","decf": "100000"}
+opcode = {"decf": "100000","incf": "100001","comf": "100010","decfz": "100011","incfz": "100000"}
 registers_dict = {"R0": "000", "R1": "001", "R2": "010","R3": "011","R4": "100","R5": "101","R6": "110"}
 for instr in command_list: 
     if instr != []:
