@@ -50,7 +50,7 @@ for file in l:
                 s += ch
         mantissa = s[1:]
         bias_exp = binary(bias_exp,3)
-        mantissa = binary(mantissa,5)
+        mantissa = binary(int(mantissa),5)
         number = bias_exp + mantissa
         number = int(number)
         return number
