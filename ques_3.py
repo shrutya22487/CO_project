@@ -1,4 +1,4 @@
-i , R0 , R1 , R2 , R3 , R4 , R5 , R6 , FLAGS =0, 0 , 0 , 0 , 0 , 0 , 0 , 0 , [0 for k in range (16)]
+i , R0 , R1 , R2 , R3 , R4 , R5 , R6 , FLAGS =0, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0
 reg = {
     "000": globals()["R0"],
     "001": globals()["R1"],
@@ -19,6 +19,13 @@ for file in l:
         command_list[i] = command_list[i].strip()
     
     variables = []
+    
+    def set_flags(FLAGS, index):
+        FLAGS=list(binary(FLAGS, 16))
+        FLAGS[index]=1
+        FLAGS=list(map(str, FLAGS))
+        FLAGS=decimal("".join(FLAGS))
+        return FLAGS
 
     def binary(x,n): #x->Decimal number, n->No of bits
         lst=["0" for i in range (n)]
@@ -77,11 +84,11 @@ for file in l:
                 s += ch
         mantissa = s[1:]
         if bias_exp > 7 and mantissa >= 0:
-            FLAGS[12]=1
+            reg["111"]=set_flags(reg["111"],12)
             dec_no = 0
         else:
-            FLAGS=[0 for k in range (16)]
-        return FLAGS, dec_no
+            reg["111"]=0
+        return dec_no
             
 
     def addf(instr):
@@ -91,7 +98,7 @@ for file in l:
         reg1=instr[7:10]
         reg[reg1]= reg2 + reg3
         decimal = reg2 + reg3
-        FLAGS,reg[reg1] = overflow(decimal,reg[reg1])
+        reg[reg1] = overflow(decimal,reg[reg1])
         return i+1
 
     def subf(instr):
@@ -101,10 +108,10 @@ for file in l:
         reg1 = instr[7:10]
         reg[reg1] = reg2 - reg3
         if reg2 < reg3:
-            FLAGS[12] = 1
+            reg["111"]=set_flags(reg["111"],12)
             reg[reg1] = 0
         else:
-            FLAGS = [0 for k in range(16)]
+            reg["111"] = 0
 
         return i + 1
 
@@ -113,5 +120,5 @@ for file in l:
         reg1=instr[6:9]
         val = float_dec(instr[9:])
         reg[reg1]=val
-        FLAGS=[0 for k in range (16)]
+        reg["111"]=0
         return i+1
