@@ -52,7 +52,6 @@ for file in l:
         bias_exp = binary(bias_exp,3)
         mantissa = binary(int(mantissa),5)
         number = bias_exp + mantissa
-        number = int(number)
         return number
 
     def float_dec(d_no):
