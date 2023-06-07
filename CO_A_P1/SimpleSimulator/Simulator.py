@@ -1,4 +1,4 @@
-#import sys
+import sys
 i , R0 , R1 , R2 , R3 , R4 , R5 , R6 , FLAGS =0, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0
 reg = {
     "000": globals()["R0"],
@@ -10,11 +10,11 @@ reg = {
     "110": globals()["R6"],
     "111": globals()["FLAGS"]
 } 
-#command_list = sys.stdin.readlines()   # comment this out
+command_list = sys.stdin.readlines()   # comment this out
 #l = [ 'D:\\test2.txt' ] # remove this
 #for file in l:   # remove for loop
-f = open( 'D:\\test1.txt' )
-command_list = f.readlines()
+#f = open( 'D:\\test1.txt' )
+#command_list = f.readlines()
 l = len(command_list)
 for i in range(l):
     command_list[i] = command_list[i].strip()  # Remove trailing newline character
@@ -267,4 +267,4 @@ print(binary(i,7)+"        "+s)
 memory_dump()
 #print( variables )
 #print("\n")
-f.close()
+#f.close()
