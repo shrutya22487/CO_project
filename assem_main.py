@@ -65,15 +65,15 @@ def binary(x,n):
 def movImm(lst): #00010 mov
     r=binary(int(lst[1][-1]),3)
     val=binary(int(lst[2][1:]),7)
-    print("00010"+"0"+r+val+"\n")
+    print("00010"+"0"+r+val)
 def rightShift(lst): #01000 rs
     r=binary(int(lst[1][-1]),3)
     val=binary(int(lst[2][1:]),7)
-    print("01000"+"0"+r+val+"\n")
+    print("01000"+"0"+r+val)
 def leftShift(lst): #01001 ls
     r=binary(int(lst[1][-1]),3)
     val=binary(int(lst[2][1:]),7)
-    print("01001"+"0"+r+val+"\n")
+    print("01001"+"0"+r+val)
 
 def movReg(lst): #00011 mov
     if lst[1]=='FLAGS' and lst[2]!='FLAGS':
@@ -85,28 +85,28 @@ def movReg(lst): #00011 mov
     else:
         reg1=binary(int(lst[1][-1]),3)
         reg2=binary(int(lst[2][-1]),3)
-    print("00011"+"00000"+reg1+reg2+"\n")
+    print("00011"+"00000"+reg1+reg2)
 def divide(lst): #00111 div
     reg1=binary(int(lst[1][-1]),3)
     reg2=binary(int(lst[2][-1]),3)
-    print("00111"+"00000"+reg1+reg2+"\n")
+    print("00111"+"00000"+reg1+reg2)
 def invert(lst): #01101 not
     reg1=binary(int(lst[1][-1]),3)
     reg2=binary(int(lst[2][-1]),3)
-    print("01101"+"00000"+reg1+reg2+"\n")
+    print("01101"+"00000"+reg1+reg2)
 def compare(lst): #01110 cmp
     reg1=binary(int(lst[1][-1]),3)
     reg2=binary(int(lst[2][-1]),3)
-    print("01110"+"00000"+reg1+reg2+"\n")
+    print("01110"+"00000"+reg1+reg2)
 
 def load(lst, addr): #00100 ld
     r=binary(int(lst[1][-1]),3)
     addr=binary(addr, 7)
-    print("00100"+"0"+r+addr+"\n")
+    print("00100"+"0"+r+addr)
 def store(lst, addr): #00101 st
     r=binary(int(lst[1][-1]),3)
     addr=binary(addr,7)
-    print("00101"+"0"+r+addr+"\n")
+    print("00101"+"0"+r+addr)
 
 def jmp(lst,code,var_lst):   # "01111"
     label_num1 = 0
@@ -117,7 +117,7 @@ def jmp(lst,code,var_lst):   # "01111"
         if not check_label(code[j]):
             label_num1 += 1 
     val = binary(i-len(var_lst)-label_num1,7)
-    print("01111"+"0000"+val+"\n")
+    print("01111"+"0000"+val)
 
 def jlt(lst,code,var_lst):  # "11100"
     label_num1 = 0
@@ -128,7 +128,7 @@ def jlt(lst,code,var_lst):  # "11100"
         if not check_label(code[j]):
             label_num1 += 1
     val = binary(i-len(var_lst)-label_num1,7)
-    print("11100"+"0000"+val+"\n")
+    print("11100"+"0000"+val)
             
 def jgt(lst,code,var_lst):  # "11101"
     label_num1 = 0
@@ -139,7 +139,7 @@ def jgt(lst,code,var_lst):  # "11101"
         if not check_label(code[j]):
             label_num1 += 1
     val = binary(i-len(var_lst)-label_num1,7)
-    print("11101"+"0000"+val+"\n")
+    print("11101"+"0000"+val)
             
 def je(lst,code,var_lst):  # "11111"
     label_num1 = 0
@@ -151,29 +151,29 @@ def je(lst,code,var_lst):  # "11111"
         if not check_label(code[j]):
             label_num1 += 1
     val = binary(i-len(var_lst)-label_num1,7)
-    print("11111"+"0000"+val+"\n")
+    print("11111"+"0000"+val)
             
 
 def halt(): #11010 hlt
-    print("11010"+"00000000000"+"\n")
+    print("11010"+"00000000000")
     
 def add(x,y,z):
-    machinecode = "0000000" + x + y + z+"\n"
+    machinecode = "0000000" + x + y + z
     print(machinecode)
 def sub(x,y,z):
-    machinecode = "0000100" + x + y + z+"\n"
+    machinecode = "0000100" + x + y + z
     print(machinecode)
 def mul(x,y,z):
-    machinecode = "0011000" + x + y + z+"\n"
+    machinecode = "0011000" + x + y + z
     print(machinecode)
 def xor(x,y,z):
-    machinecode = "0101000" + x + y + z+"\n"
+    machinecode = "0101000" + x + y + z
     print(machinecode)
 def orfunc(x,y,z):
-    machinecode = "0101100" + x + y + z+"\n"
+    machinecode = "0101100" + x + y + z
     print(machinecode)
 def andfunc(x,y,z):
-    machinecode = "0110000" + x + y + z+"\n"
+    machinecode = "0110000" + x + y + z
     print(machinecode)
 
 ########## main ############
