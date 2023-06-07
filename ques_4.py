@@ -51,7 +51,7 @@ for file in l:
         print(machinecode)
     
     def comf_simulator(instr):             #Stores 1's complement of the given register 
-        source_reg = str(instr[10:13])
+        source_reg = str(reg[instr[10:13]])
         s = ''
         for ch in source_reg:
             if ch == '1':
