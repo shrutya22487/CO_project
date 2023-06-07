@@ -92,7 +92,6 @@ for file in l:
             
 
     def addf(instr):
-        global FLAGS
         reg2= reg[instr[10:13] ]
         reg3= reg[instr[13:16] ]
         reg1=instr[7:10]
@@ -102,7 +101,6 @@ for file in l:
         return i+1
 
     def subf(instr):
-        global FLAGS
         reg2 = reg[instr[10:13]]
         reg3 = reg[instr[13:]]
         reg1 = instr[7:10]
@@ -116,7 +114,6 @@ for file in l:
         return i + 1
 
     def movfImm(instr):
-        global FLAGS
         reg1=instr[6:9]
         val = float_dec(instr[9:])
         reg[reg1]=val
