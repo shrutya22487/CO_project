@@ -10,8 +10,8 @@ reg = {
     "110": globals()["R6"],
     "111": globals()["FLAGS"]
 } 
-command_list = sys.stdin.readlines()   
-#l = [ 'D:\\test3.txt' ] # remove this
+command_list = sys.stdin.readlines()   # comment this out
+#l = [ 'D:\\test2.txt' ] # remove this
 #for file in l:   # remove for loop
     #f = open(file)
     #command_list = f.readlines()
@@ -60,7 +60,7 @@ def add(instr):
         reg[reg1] = binary(0,16)
     else:
         reg["111"]=0
-
+    
     return i+1
 
 def sub(instr):
@@ -86,7 +86,7 @@ def mul(instr):
         reg[reg1] = binary(0,16)
     else:
         reg["111"]=0
-
+    
     return i+1
 
 def bit_xor(instr):
@@ -206,7 +206,7 @@ def jlt(instr):  # "11100"
         return decimal(mem_addr)
     reg["111"]=0
     return i+1
-
+    
 def jgt(instr):  # "11101"
     if binary(reg["111"],16)[14] == "1":
         mem_addr = instr[10:]
@@ -259,9 +259,9 @@ i = 0
 while ( command_list[i][:5]!='11010'):   #termination step is when we reach opcode of halt
     i = instructions[command_list[i][:5]](command_list[i])
     s=registers()
-    print(binary(i-1,7)+" "+s)       
-print(binary(i,7)+" "+s)
+    print(binary(i-1,7)+"        "+s)       
+print(binary(i,7)+"        "+s)
 memory_dump()
 #print( variables )
-print("\n")
+#print("\n")
 #f.close()
