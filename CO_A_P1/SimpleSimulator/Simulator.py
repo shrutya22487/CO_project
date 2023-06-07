@@ -20,7 +20,7 @@ for i in range(l):
     command_list[i] = command_list[i].strip()  # Remove trailing newline character
 
 
-variables = [0] * 128
+variables = []
 def set_flags(FLAGS, index):
     FLAGS=list(binary(FLAGS, 16))
     FLAGS[index]=1
@@ -182,6 +182,9 @@ def ld(instr):
     reg1=instr[6:9]
     mem = int( instr[9:] )
     loc = decimal( mem ) - l 
+    leng = len( variables )
+    for j in range( leng , loc + 1 ):
+        variables.append( 0 )
     reg[reg1]=variables[loc] #Review
     reg["111"]=0
     return i+1
@@ -190,6 +193,9 @@ def st(instr):
     mem = int( instr[9:] )
     reg1 = reg[ instr[6:9] ]
     loc = decimal( mem ) - l 
+    leng = len( variables )
+    for j in range( leng , loc + 1 ):
+        variables.append( 0 )
     variables[ loc ] = reg1
     reg["111"]=0
     return i+1
