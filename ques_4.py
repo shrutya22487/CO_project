@@ -65,17 +65,11 @@ for file in l:
     def comf_assembly(source_reg,dest_reg):
         machinecode = "1000100000" + source_reg + dest_reg + "\n"
         print(machinecode)
-
-    def jmp(instr):   # "01111"
-        mem_addr = instr[10:]
-        reg["111"]=0
-        return decimal(mem_addr)
     
     def decfz_simulator(instr):     #Jumps to the memory address if register contains 1
         reg1 = reg[instr[6:9]]
         reg[reg1] = reg1 - 1
         mem_addr = instr[10:]
-        reg["111"]=0
         if reg[reg1] == 0:   
             return decimal(mem_addr)
         else:
