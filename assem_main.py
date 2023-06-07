@@ -37,9 +37,10 @@ def check_instruction_F(instruction_list): # checks if instruction is of type F 
     if instruction_list==['hlt']:
         return 0
     return 1
-def check_label(instruction_list): # checks if instruction is of type label the returns 0
-    if instruction_list[0][-1] == ':' :
-        return 0
+def check_label(instruction_list):
+    if instruction_list:  # Check if the list is not empty
+        if instruction_list[0][-1] == ":":
+            return 0
     return 1
 
 def check_variables(instruction_list):
@@ -177,11 +178,12 @@ def andfunc(x,y,z):
 ########## main ############
 
 command_list = sys.stdin.readlines()
-#command_list = input.readlines()
-#f=open("output.txt",'w')
+# inp=open("input.txt")
+command_list = input.readlines()
+f=open("output.txt",'w')
 for i in range(len(command_list)):
     command_list[i]=command_list[i].split()
-#print(command_list, '\n')
+# print(command_list, '\n')
 #will give the lines broken up into seperate words and gives empty lists for empty lines
 ######### start checking#########
 
@@ -202,11 +204,12 @@ flag = 0
 
 for i, instr in enumerate(command_list):
     if not check_label(instr):
-        label.append(instr[0][:len(instr[0])-1])
-        next_instr = instr[1:]
-        command_list[i] = [instr[0]]
-        command_list.insert(i + 1, next_instr)
-
+        if instr:  # Check if instr is not empty
+            label.append(instr[0][:len(instr[0])-1])
+            next_instr = instr[1:]
+            command_list[i] = [instr[0]]
+            command_list.insert(i + 1, next_instr)
+# print('\n', command_list, '\n')
 
 #print (command_list)
 
@@ -365,5 +368,5 @@ if (not flag):
             elif op=="hlt":
                 halt()
 
-#f.close()
-#input.close()
+# f.close()
+# input.close()
