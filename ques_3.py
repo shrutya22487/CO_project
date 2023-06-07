@@ -59,7 +59,8 @@ for file in l:
         exp_bias = d_str[0:3]
         exp_bias = decimal(int(exp_bias))
         exp = exp_bias - 3
-        p = decimal(float("1." + d_str[3:]))
+        mantissa = decimal(int(d_str[3:]))
+        p = float("2." + mantissa)
         number = p * (10**exp)
         return number
 
