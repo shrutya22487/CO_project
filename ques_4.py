@@ -89,7 +89,7 @@ for file in l:
             return i + 1
     
     def incfz_assembly(source_reg,mem_address):
-        machinecode = "1001000" + source_reg + mem_address + "\n"
+        machinecode = "100100" + source_reg + mem_address + "\n"
         print(machinecode)
 
 opcode = {"decf": "100000","incf": "100001","comf": "100010","swapf": "100011","decf": "100000"}
