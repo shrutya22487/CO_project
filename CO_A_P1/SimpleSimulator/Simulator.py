@@ -13,7 +13,7 @@ reg = {
 command_list = sys.stdin.readlines()   # comment this out
 #l = [ 'D:\\test2.txt' ] # remove this
 #for file in l:   # remove for loop
-#f = open( 'D:\\test1.txt' )
+#f = open( 'D:\\test2.txt' )
 #command_list = f.readlines()
 l = len(command_list)
 for i in range(l):
@@ -235,6 +235,7 @@ def memory_dump():
     length_of_variable = len( variables )
     for i in range( 0 , length_of_variable ):
         print( binary( variables[ i ]  , 16  ) )
+    #print("CHeCK")
     for i in range(l , 128 - length_of_variable ):
         print('0000000000000000')
 
