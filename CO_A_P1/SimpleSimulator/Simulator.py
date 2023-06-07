@@ -1,4 +1,4 @@
-import sys
+#import sys
 i , R0 , R1 , R2 , R3 , R4 , R5 , R6 , FLAGS =0, 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0
 reg = {
     "000": globals()["R0"],
@@ -10,17 +10,17 @@ reg = {
     "110": globals()["R6"],
     "111": globals()["FLAGS"]
 } 
-command_list = sys.stdin.readlines()   # comment this out
+#command_list = sys.stdin.readlines()   # comment this out
 #l = [ 'D:\\test2.txt' ] # remove this
 #for file in l:   # remove for loop
-    #f = open(file)
-    #command_list = f.readlines()
+f = open( 'D:\\test1.txt' )
+command_list = f.readlines()
 l = len(command_list)
 for i in range(l):
     command_list[i] = command_list[i].strip()  # Remove trailing newline character
 
 
-variables = [] 
+variables = [0] * 128
 def set_flags(FLAGS, index):
     FLAGS=list(binary(FLAGS, 16))
     FLAGS[index]=1
@@ -155,9 +155,16 @@ def ls(instr):
     return i+1
 
 def n_ot(instr):
-    reg1=reg[instr[10:13]]
-    reg2=decimal(instr[13:])
-    reg[reg1]=~reg2
+    reg1=instr[10:13]
+    reg2=reg[instr[13:]]
+    temp=''
+    reg2=binary(reg2,16)
+    for bit in reg2:
+        if bit=="0":
+            temp+="1"
+        else:
+            temp+="0"
+    reg[reg1]=decimal(temp)
     reg["111"]=0
     return i+1
 
@@ -174,11 +181,7 @@ def c_mp(instr):
 def ld(instr):
     reg1=instr[6:9]
     mem = int( instr[9:] )
-    loc = decimal( mem ) - l   
-    try:
-        variables[loc]
-    except:
-        variables.append( 0 )
+    loc = decimal( mem ) - l 
     reg[reg1]=variables[loc] #Review
     reg["111"]=0
     return i+1
@@ -187,10 +190,6 @@ def st(instr):
     mem = int( instr[9:] )
     reg1 = reg[ instr[6:9] ]
     loc = decimal( mem ) - l 
-    try:
-        variables[loc]
-    except:
-        variables.append( 0 ) 
     variables[ loc ] = reg1
     reg["111"]=0
     return i+1
@@ -222,6 +221,7 @@ def je(instr):  # "11111"
     return i+1
 
 def hlt():
+    reg["111"]=0
     return 0
 def memory_dump():
     for i, cmd in enumerate(command_list):
@@ -260,8 +260,11 @@ while ( command_list[i][:5]!='11010'):   #termination step is when we reach opco
     i = instructions[command_list[i][:5]](command_list[i])
     s=registers()
     print(binary(i-1,7)+"        "+s)       
+#print( "check")
+reg["111"] = 0
+s = registers()
 print(binary(i,7)+"        "+s)
 memory_dump()
 #print( variables )
 #print("\n")
-#f.close()
+f.close()
